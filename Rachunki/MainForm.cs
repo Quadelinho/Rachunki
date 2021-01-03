@@ -12,6 +12,7 @@ namespace Rachunki
     public partial class MainForm : Form
     {
         private List<Bill> billsForLabel = new List<Bill>();
+        Bill currentlyShownBill = null;
 
         public MainForm()
         {
@@ -22,8 +23,6 @@ namespace Rachunki
         private void ShowWarningsIfNeeded()
         {
             BillsProcessor processor = new BillsProcessor();
-            //select unpaid bills with payment date closer then a week - for reminder and all old unpaid bills as warnings
-            //List<Bill> unpaidBills = processor.ValidateUnpaidBills();
             Bill[] unpaidBills = processor.GetUnpaidBills();
             Bill[] incommingBills = processor.GetIncommingBills();
             if(unpaidBills.Length > 0
@@ -82,7 +81,7 @@ namespace Rachunki
             BillsProcessor processor = new BillsProcessor();
             billsForLabel = processor.GetBillsForLabel(SelectComboBox.Text);
 
-            Bill currentlyShownBill = billsForLabel[0];
+            currentlyShownBill = billsForLabel[0];
             DescriptionTextBox.Text = currentlyShownBill.Label;
             PaymentDateTextBox.Text = currentlyShownBill.PaymentDate;
             NextPaymentDateTextBox.Text = processor.GetNextPaymentDate(currentlyShownBill.PaymentDate, currentlyShownBill.Frequency);
@@ -96,14 +95,28 @@ namespace Rachunki
             }
             else
             {
-                PaidLabel.Text = "Opłacony";
-                PaidLabel.ForeColor = System.Drawing.Color.Green;
+                MakePaidLabelGreen();
             }
         }
 
         private void MainForm_Shown(object sender, EventArgs e)
         {
             ShowWarningsIfNeeded();
+        }
+
+        private void DoPaymentButton_Click(object sender, EventArgs e)
+        {
+            BillsProcessor processor = new BillsProcessor();
+            if (processor.MarkBillAsPaid(currentlyShownBill.Id))
+            {
+                MakePaidLabelGreen();
+            }
+        }
+
+        private void MakePaidLabelGreen()
+        {
+            PaidLabel.Text = "Opłacony";
+            PaidLabel.ForeColor = System.Drawing.Color.Green;
         }
     }
 }

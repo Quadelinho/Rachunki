@@ -268,6 +268,7 @@
             this.DoPaymentButton.TabIndex = 7;
             this.DoPaymentButton.Text = "Oznacz jako opłacony";
             this.DoPaymentButton.UseVisualStyleBackColor = true;
+            this.DoPaymentButton.Click += new System.EventHandler(this.DoPaymentButton_Click);
             // 
             // ValueLabel
             // 

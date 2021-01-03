@@ -17,7 +17,7 @@ namespace Rachunki.Controller
             using (var context = new DatabaseContext())
             {
                 var now = DateTime.Now.ToShortDateString();
-                billsToReturn = context.Bills.Where(b => b.IsPaid == 0)//.Where(b => b.IsPaid == 0 && string.Compare(b.PaymentDate, now) <= 0)
+                billsToReturn = context.Bills.Where(b => b.IsPaid == 0)
                     .OrderBy(b => b.PaymentDate).ToArray()
                     .Where(b => b.IsPaid == 0 && DateTime.Parse(b.PaymentDate) <= DateTime.Now).ToArray();
             }
@@ -36,12 +36,6 @@ namespace Rachunki.Controller
                 string todayDateString = todayDate.ToShortDateString();
                 string week = todayDate.AddDays(7).ToShortDateString();
                 billsToReturn = context.Bills
-                     //               .Where(b => b.IsPaid == 0 
-                     //                   //&& Convert.ToDateTime(b.PaymentDate) >= todayDate
-                     //                   && string.Compare(b.PaymentDate, todayDateString) >= 0
-                     //                   //&& Convert.ToDateTime(b.PaymentDate) <= DateTime.Now.AddDays(7)) // bills that should be piad within a week from today
-                     //                   && string.Compare(b.PaymentDate, week) <= 0)
-                     //               .OrderBy(b => b.PaymentDate).ToArray();
                      .Where(b => b.IsPaid == 0)
                      .OrderBy(b => b.PaymentDate).ToArray()
                      .Where(b => DateTime.Parse(b.PaymentDate) >= todayDate && DateTime.Parse(b.PaymentDate) <= todayDate.AddDays(7))
@@ -102,6 +96,22 @@ namespace Rachunki.Controller
                 bills = context.Bills.Where(b => b.Label == label).OrderByDescending(b => b.PaymentDate).ToList();
             }
             return bills != null ? bills : new List<Bill>();
+        }
+
+        public bool MarkBillAsPaid(int id)
+        {
+            bool success = false;
+            using (var context = new DatabaseContext())
+            {
+                Bill entry = context.Bills.FirstOrDefault(b => b.Id == id);
+                if(entry != null)
+                {
+                    entry.IsPaid = 1;
+                    context.SaveChanges();
+                    success = true;
+                }
+            }
+            return success;
         }
 
         public void Dispose()
