@@ -133,14 +133,14 @@
             // 
             // EditDescriptionButton
             // 
-            this.EditDescriptionButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.EditDescriptionButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.EditDescriptionButton.Location = new System.Drawing.Point(358, 41);
             this.EditDescriptionButton.Name = "EditDescriptionButton";
             this.EditDescriptionButton.Size = new System.Drawing.Size(32, 23);
             this.EditDescriptionButton.TabIndex = 6;
             this.EditDescriptionButton.Text = "...";
             this.EditDescriptionButton.UseVisualStyleBackColor = true;
+            this.EditDescriptionButton.Click += new System.EventHandler(this.EditDescriptionButton_Click);
             // 
             // PaymentDateLabel
             // 
@@ -163,14 +163,14 @@
             // 
             // PaymentDateButton
             // 
-            this.PaymentDateButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.PaymentDateButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.PaymentDateButton.Location = new System.Drawing.Point(358, 80);
             this.PaymentDateButton.Name = "PaymentDateButton";
             this.PaymentDateButton.Size = new System.Drawing.Size(32, 23);
             this.PaymentDateButton.TabIndex = 6;
             this.PaymentDateButton.Text = "...";
             this.PaymentDateButton.UseVisualStyleBackColor = true;
+            this.PaymentDateButton.Click += new System.EventHandler(this.PaymentDateButton_Click);
             // 
             // NextPaymentDateLabel
             // 
@@ -193,8 +193,7 @@
             // 
             // NextPaymentDateButton
             // 
-            this.NextPaymentDateButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.NextPaymentDateButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.NextPaymentDateButton.Location = new System.Drawing.Point(358, 121);
             this.NextPaymentDateButton.Name = "NextPaymentDateButton";
             this.NextPaymentDateButton.Size = new System.Drawing.Size(32, 23);
@@ -215,8 +214,7 @@
             // 
             // label1
             // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(289, 197);
             this.label1.Name = "label1";
@@ -236,14 +234,14 @@
             // 
             // FrequencyButton
             // 
-            this.FrequencyButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.FrequencyButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.FrequencyButton.Location = new System.Drawing.Point(357, 194);
             this.FrequencyButton.Name = "FrequencyButton";
             this.FrequencyButton.Size = new System.Drawing.Size(32, 23);
             this.FrequencyButton.TabIndex = 6;
             this.FrequencyButton.Text = "...";
             this.FrequencyButton.UseVisualStyleBackColor = true;
+            this.FrequencyButton.Click += new System.EventHandler(this.FrequencyButton_Click);
             // 
             // PaidLabel
             // 
@@ -291,14 +289,14 @@
             // 
             // ValueButton
             // 
-            this.ValueButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ValueButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.ValueButton.Location = new System.Drawing.Point(358, 160);
             this.ValueButton.Name = "ValueButton";
             this.ValueButton.Size = new System.Drawing.Size(32, 23);
             this.ValueButton.TabIndex = 6;
             this.ValueButton.Text = "...";
             this.ValueButton.UseVisualStyleBackColor = true;
+            this.ValueButton.Click += new System.EventHandler(this.ValueButton_Click);
             // 
             // MainForm
             // 

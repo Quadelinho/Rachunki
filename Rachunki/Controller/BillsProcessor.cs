@@ -114,6 +114,19 @@ namespace Rachunki.Controller
             return success;
         }
 
+        public void UpdateBill(Bill entryToUpdate)
+        {
+            using (var context = new DatabaseContext())
+            {
+                Bill entry = context.Bills.FirstOrDefault(b => b.Id == entryToUpdate.Id);
+                if (entry != null)
+                {
+                    context.Entry<Bill>(entry).CurrentValues.SetValues(entryToUpdate);
+                    context.SaveChanges();
+                }
+            }
+        }
+
         public void Dispose()
         {
             

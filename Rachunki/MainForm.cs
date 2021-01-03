@@ -118,5 +118,67 @@ namespace Rachunki
             PaidLabel.Text = "Opłacony";
             PaidLabel.ForeColor = System.Drawing.Color.Green;
         }
+
+        private void EditDescriptionButton_Click(object sender, EventArgs e)
+        {
+            TextEditor editor = new TextEditor();
+            editor.SetEditor(EditorType.Text);
+            editor.StartPosition = FormStartPosition.CenterParent;
+            if(editor.ShowDialog() == DialogResult.OK)
+            {
+                currentlyShownBill.Label = editor.Value;
+                BillsProcessor processor = new BillsProcessor();
+                processor.UpdateBill(currentlyShownBill);
+                PopulateLabelsDropDown();
+            }
+        }
+
+        private void PaymentDateButton_Click(object sender, EventArgs e)
+        {
+            TextEditor editor = new TextEditor();
+            editor.SetEditor(EditorType.Date);
+            editor.StartPosition = FormStartPosition.CenterParent;
+            if (editor.ShowDialog() == DialogResult.OK)
+            {
+                currentlyShownBill.PaymentDate = editor.Value;
+                BillsProcessor processor = new BillsProcessor();
+                processor.UpdateBill(currentlyShownBill);
+                PaymentDateTextBox.Text = currentlyShownBill.PaymentDate;
+            }
+        }
+
+        private void ValueButton_Click(object sender, EventArgs e)
+        {
+            TextEditor editor = new TextEditor();
+            editor.SetEditor(EditorType.Decimal);
+            editor.StartPosition = FormStartPosition.CenterParent;
+            if (editor.ShowDialog() == DialogResult.OK)
+            {
+                currentlyShownBill.Value = decimal.Parse(editor.Value);
+                BillsProcessor processor = new BillsProcessor();
+                processor.UpdateBill(currentlyShownBill);
+                ValueTextBox.Text = currentlyShownBill.Value.ToString();
+            }
+        }
+
+        private void FrequencyButton_Click(object sender, EventArgs e)
+        {
+            TextEditor editor = InitializeEditor(EditorType.Int);
+            if (editor.ShowDialog() == DialogResult.OK)
+            {
+                currentlyShownBill.Frequency = int.Parse(editor.Value);
+                BillsProcessor processor = new BillsProcessor();
+                processor.UpdateBill(currentlyShownBill);
+                FrequencyTextBox.Text = currentlyShownBill.Frequency.ToString();
+            }
+        }
+
+        private TextEditor InitializeEditor(EditorType type)
+        {
+            TextEditor editor = new TextEditor();
+            editor.SetEditor(type);
+            editor.StartPosition = FormStartPosition.CenterParent;
+            return editor;
+        }
     }
 }

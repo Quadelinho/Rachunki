@@ -82,11 +82,31 @@
     <Compile Include="Forms\Controls\EntriesList.Designer.cs">
       <DependentUpon>EntriesList.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Controls\IGettable.cs" />
+    <Compile Include="Forms\Controls\DateValueEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Controls\DateValueEditor.Designer.cs">
+      <DependentUpon>DateValueEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Controls\TextValueEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Controls\TextValueEditor.Designer.cs">
+      <DependentUpon>TextValueEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\EditorType.cs" />
     <Compile Include="Forms\EntryEditor.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\EntryEditor.Designer.cs">
       <DependentUpon>EntryEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\TextEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\TextEditor.Designer.cs">
+      <DependentUpon>TextEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\WarningsList.cs">
       <SubType>Form</SubType>
@@ -106,8 +126,17 @@
     <EmbeddedResource Include="Forms\Controls\EntriesList.resx">
       <DependentUpon>EntriesList.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Controls\DateValueEditor.resx">
+      <DependentUpon>DateValueEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Controls\TextValueEditor.resx">
+      <DependentUpon>TextValueEditor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\EntryEditor.resx">
       <DependentUpon>EntryEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\TextEditor.resx">
+      <DependentUpon>TextEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\WarningsList.resx">
       <DependentUpon>WarningsList.cs</DependentUpon>
