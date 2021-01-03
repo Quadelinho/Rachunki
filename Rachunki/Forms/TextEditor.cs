@@ -1,12 +1,5 @@
 ﻿using Rachunki.Forms.Controls;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Rachunki.Forms
@@ -16,6 +9,7 @@ namespace Rachunki.Forms
         public string Value { get; set; }
         public TextEditor()
         {
+            Value = string.Empty;
             this.SuspendLayout();
             InitializeComponent();
         }
@@ -55,6 +49,7 @@ namespace Rachunki.Forms
 
         private void buttonCancel_Click(object sender, EventArgs e)
         {
+            Value = string.Empty;
             DialogResult = DialogResult.Cancel;
         }
     }

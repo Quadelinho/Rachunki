@@ -23,3 +23,6 @@ C:\Git\Rach\Rachunki\Rachunki\obj\Debug\Rachunki.csprojAssemblyReference.cache
 C:\Git\Rach\Rachunki\Rachunki\obj\Debug\Rachunki.Forms.Controls.TextValueEditor.resources
 C:\Git\Rach\Rachunki\Rachunki\obj\Debug\Rachunki.Forms.TextEditor.resources
 C:\Git\Rach\Rachunki\Rachunki\obj\Debug\Rachunki.Forms.Controls.DateValueEditor.resources
+C:\Git\Rach\Rachunki\Rachunki\obj\Debug\Rachunki.Forms.Controls.NumericEditor.resources
+C:\Git\Rach\Rachunki\Rachunki\obj\Debug\Rachunki.Forms.Finder.resources
+C:\Git\Rach\Rachunki\Rachunki\obj\Debug\Rachunki.Forms.FindResults.resources

@@ -4,8 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Rachunki.Controller
 {
@@ -18,7 +16,7 @@ namespace Rachunki.Controller
             {
                 var now = DateTime.Now.ToShortDateString();
                 billsToReturn = context.Bills.Where(b => b.IsPaid == 0)
-                    .OrderBy(b => b.PaymentDate).ToArray()
+                    .OrderBy(b => b.PaymentDate).ToArray() //ToArray called to force query execution because sqlite cannot work on date time methods - condition has to be checked at the c# side
                     .Where(b => b.IsPaid == 0 && DateTime.Parse(b.PaymentDate) <= DateTime.Now).ToArray();
             }
 
@@ -37,7 +35,7 @@ namespace Rachunki.Controller
                 string week = todayDate.AddDays(7).ToShortDateString();
                 billsToReturn = context.Bills
                      .Where(b => b.IsPaid == 0)
-                     .OrderBy(b => b.PaymentDate).ToArray()
+                     .OrderBy(b => b.PaymentDate).ToArray() //ToArray called to force query execution because sqlite cannot work on date time methods - condition has to be checked at the c# side
                      .Where(b => DateTime.Parse(b.PaymentDate) >= todayDate && DateTime.Parse(b.PaymentDate) <= todayDate.AddDays(7))
                      .ToArray();
             }
@@ -45,16 +43,20 @@ namespace Rachunki.Controller
             return billsToReturn;
         }
 
-        public void CreateNewInstancesOfBills()
+        public void CreateNextBillInstance(string sourceLabel)
         {
             using (var context = new DatabaseContext())
             {
-                //foreach (Bill billEntry in context.Bills.Select(b => b.Label))
-                //{
-                    
-                //}
+                Bill sourceEntry = context.Bills.Where(b => b.Label == sourceLabel)
+                    .OrderByDescending(b => b.PaymentDate).FirstOrDefault();
+                if (sourceEntry != null)
+                {
+                    sourceEntry.PaymentDate = GetNextPaymentDate(sourceEntry.PaymentDate, sourceEntry.Frequency);
+                    sourceEntry.IsPaid = 0;
+                    context.Bills.Add(sourceEntry);
+                    context.SaveChanges();
+                }
             }
-            //for each Label create a new instance for the next payment (if not exist)
         }
 
         public string GetNextPaymentDate(string recentDate, int monthsToAdd)
@@ -74,9 +76,6 @@ namespace Rachunki.Controller
                     Array.Sort(labels, StringComparer.Create(CultureInfo.CurrentCulture, true));
                 }
                 return labels;
-                //return sort ? context.Bills.Select(b => b.Label).Distinct().OrderBy(label => label, StringComparer.Create(new System.Globalization.CultureInfo("pl_PL"), true)).ToArray<string>() :
-                //return sort ? context.Bills.Select(b => b.Label).Distinct().OrderBy(label => label, StringComparer.Create(CultureInfo.CurrentCulture, true)).ToArray<string>() :
-                //    context.Bills.Select(b => b.Label).Distinct().ToArray<string>();
             }
         }
 
@@ -125,6 +124,37 @@ namespace Rachunki.Controller
                     context.SaveChanges();
                 }
             }
+        }
+
+        public Bill[] FindBills(string label, bool getOnlyUnpaid)
+        {
+            Bill[] foundBills = new Bill[0];
+            using (var context = new DatabaseContext())
+            {
+                foundBills = getOnlyUnpaid ? context.Bills.Where(b => b.IsPaid == 0 && b.Label == label)
+                    .OrderBy(b => b.PaymentDate).ToArray() :
+                    context.Bills.Where(b => b.Label == label).OrderBy(b => b.PaymentDate).ToArray();
+            }
+            return foundBills;
+        }
+
+        public Bill[] FindBills(string date, bool greaterThan, bool getOnlyUnpaid)
+        {
+            Bill[] foundBills = new Bill[0];
+            DateTime dateToCheck = DateTime.Parse(date);
+            using (var context = new DatabaseContext())
+            {
+                foundBills = getOnlyUnpaid ? context.Bills.Where(b => b.IsPaid == 0).ToArray() : context.Bills.ToArray();
+                if(greaterThan)
+                {
+                    foundBills = foundBills.Where(b => DateTime.Parse(b.PaymentDate) >= dateToCheck).ToArray();
+                }
+                else
+                {
+                    foundBills = foundBills.Where(b => DateTime.Parse(b.PaymentDate) <= dateToCheck).ToArray();
+                }
+            }
+            return foundBills;
         }
 
         public void Dispose()

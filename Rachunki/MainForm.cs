@@ -33,14 +33,7 @@ namespace Rachunki
                 warningsDialog.ShowDialog();
             }
         }
-
-        private void CreateNewInstancesOfBills()
-        {
-            //for each Label create a new instance for the next payment (if not exist)
-            BillsProcessor processor = new BillsProcessor();
-            processor.CreateNewInstancesOfBills();
-        }
-
+        
         private void PopulateLabelsDropDown()
         {
             BillsProcessor processor = new BillsProcessor();
@@ -73,7 +66,13 @@ namespace Rachunki
 
         private void Find_Click(object sender, EventArgs e)
         {
-
+            Finder findDialog = new Finder();
+            if(findDialog.ShowDialog() == DialogResult.OK)
+            {
+                FindResults resultsViewer = new FindResults();
+                resultsViewer.LoadData(findDialog.FoundBills);
+                resultsViewer.ShowDialog();
+            }
         }
 
         private void SelectComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -110,6 +109,7 @@ namespace Rachunki
             if (processor.MarkBillAsPaid(currentlyShownBill.Id))
             {
                 MakePaidLabelGreen();
+                processor.CreateNextBillInstance(currentlyShownBill.Label);
             }
         }
 
@@ -121,64 +121,63 @@ namespace Rachunki
 
         private void EditDescriptionButton_Click(object sender, EventArgs e)
         {
-            TextEditor editor = new TextEditor();
-            editor.SetEditor(EditorType.Text);
-            editor.StartPosition = FormStartPosition.CenterParent;
-            if(editor.ShowDialog() == DialogResult.OK)
+            string editedValue = CollectEditedValue(EditorType.Text);
+            if (!string.IsNullOrWhiteSpace(editedValue))
             {
-                currentlyShownBill.Label = editor.Value;
-                BillsProcessor processor = new BillsProcessor();
-                processor.UpdateBill(currentlyShownBill);
+                currentlyShownBill.Label = editedValue;
+                UpdateCurrentlyShownBillFields();
                 PopulateLabelsDropDown();
             }
         }
 
         private void PaymentDateButton_Click(object sender, EventArgs e)
         {
-            TextEditor editor = new TextEditor();
-            editor.SetEditor(EditorType.Date);
-            editor.StartPosition = FormStartPosition.CenterParent;
-            if (editor.ShowDialog() == DialogResult.OK)
+            string editedValue = CollectEditedValue(EditorType.Date);
+            if (!string.IsNullOrWhiteSpace(editedValue))
             {
-                currentlyShownBill.PaymentDate = editor.Value;
-                BillsProcessor processor = new BillsProcessor();
-                processor.UpdateBill(currentlyShownBill);
+                currentlyShownBill.PaymentDate = editedValue;
+                UpdateCurrentlyShownBillFields();
                 PaymentDateTextBox.Text = currentlyShownBill.PaymentDate;
+                BillsProcessor processor = new BillsProcessor();
+                NextPaymentDateTextBox.Text = processor.GetNextPaymentDate(currentlyShownBill.PaymentDate, currentlyShownBill.Frequency);
             }
         }
 
         private void ValueButton_Click(object sender, EventArgs e)
         {
-            TextEditor editor = new TextEditor();
-            editor.SetEditor(EditorType.Decimal);
-            editor.StartPosition = FormStartPosition.CenterParent;
-            if (editor.ShowDialog() == DialogResult.OK)
+            string editedValue = CollectEditedValue(EditorType.Decimal);
+            if (!string.IsNullOrWhiteSpace(editedValue))
             {
-                currentlyShownBill.Value = decimal.Parse(editor.Value);
-                BillsProcessor processor = new BillsProcessor();
-                processor.UpdateBill(currentlyShownBill);
+                currentlyShownBill.Value = decimal.Parse(editedValue);
+                UpdateCurrentlyShownBillFields();
                 ValueTextBox.Text = currentlyShownBill.Value.ToString();
             }
         }
 
         private void FrequencyButton_Click(object sender, EventArgs e)
         {
-            TextEditor editor = InitializeEditor(EditorType.Int);
-            if (editor.ShowDialog() == DialogResult.OK)
+            string editedValue = CollectEditedValue(EditorType.Int);
+            if (!string.IsNullOrWhiteSpace(editedValue))
             {
-                currentlyShownBill.Frequency = int.Parse(editor.Value);
-                BillsProcessor processor = new BillsProcessor();
-                processor.UpdateBill(currentlyShownBill);
+                currentlyShownBill.Frequency = int.Parse(editedValue);
+                UpdateCurrentlyShownBillFields();
                 FrequencyTextBox.Text = currentlyShownBill.Frequency.ToString();
             }
         }
 
-        private TextEditor InitializeEditor(EditorType type)
+        private string CollectEditedValue(EditorType type)
         {
             TextEditor editor = new TextEditor();
             editor.SetEditor(type);
             editor.StartPosition = FormStartPosition.CenterParent;
-            return editor;
+            editor.ShowDialog();
+            return editor.Value;
+        }
+
+        private void UpdateCurrentlyShownBillFields()
+        {
+            BillsProcessor processor = new BillsProcessor();
+            processor.UpdateBill(currentlyShownBill);
         }
     }
 }

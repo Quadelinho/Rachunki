@@ -89,6 +89,12 @@
     <Compile Include="Forms\Controls\DateValueEditor.Designer.cs">
       <DependentUpon>DateValueEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Controls\NumericEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Controls\NumericEditor.Designer.cs">
+      <DependentUpon>NumericEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Controls\TextValueEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -101,6 +107,18 @@
     </Compile>
     <Compile Include="Forms\EntryEditor.Designer.cs">
       <DependentUpon>EntryEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Finder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Finder.Designer.cs">
+      <DependentUpon>Finder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FindResults.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FindResults.Designer.cs">
+      <DependentUpon>FindResults.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\TextEditor.cs">
       <SubType>Form</SubType>
@@ -129,11 +147,20 @@
     <EmbeddedResource Include="Forms\Controls\DateValueEditor.resx">
       <DependentUpon>DateValueEditor.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Controls\NumericEditor.resx">
+      <DependentUpon>NumericEditor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Controls\TextValueEditor.resx">
       <DependentUpon>TextValueEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\EntryEditor.resx">
       <DependentUpon>EntryEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Finder.resx">
+      <DependentUpon>Finder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FindResults.resx">
+      <DependentUpon>FindResults.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\TextEditor.resx">
       <DependentUpon>TextEditor.cs</DependentUpon>
@@ -173,6 +200,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Model\BillTableScript.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
