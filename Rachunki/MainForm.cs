@@ -85,14 +85,6 @@ namespace Rachunki
             currentlySelectedIndexWithinLabel = 0;
 
             PopulateControlsForBill(currentlyShownBill);
-
-            //DescriptionTextBox.Text = currentlyShownBill.Label;
-            //PaymentDateTextBox.Text = currentlyShownBill.PaymentDate;
-            //NextPaymentDateTextBox.Text = processor.GetNextPaymentDate(currentlyShownBill.PaymentDate, currentlyShownBill.Frequency);
-            //ValueTextBox.Text = currentlyShownBill.Value.ToString();
-            //FrequencyTextBox.Text = currentlyShownBill.Frequency.ToString();
-
-            //SetPaidLabel();
         }
 
         private void MainForm_Shown(object sender, EventArgs e)
@@ -107,6 +99,7 @@ namespace Rachunki
             {
                 MakePaidLabelGreen();
                 processor.CreateNextBillInstance(currentlyShownBill.Label);
+                PopulateLabelsDropDown(); //Refresh list of bills for the label
             }
         }
 

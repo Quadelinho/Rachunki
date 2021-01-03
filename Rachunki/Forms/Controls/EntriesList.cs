@@ -1,7 +1,5 @@
 ﻿using Rachunki.Model;
-using System.Collections.Generic;
 using System.Windows.Forms;
-using static System.Windows.Forms.ListView;
 
 namespace Rachunki.Forms.Controls
 {
@@ -17,10 +15,21 @@ namespace Rachunki.Forms.Controls
             EntriesListView.Items.Clear();
             foreach(Bill entry in entries)
             {
-                var row = new string[] { entry.Label, entry.PaymentDate, entry.Value.ToString() };
-                EntriesListView.Items.Add(new ListViewItem(row));
+                var row = new string[] { entry.Label, entry.PaymentDate, entry.Value.ToString(), entry.IsPaid == 1 ? "Tak" : "Nie" };
+                ListViewItem item = new ListViewItem(row);
+                if(entry.IsPaid == 0)
+                {
+                    item.ForeColor = System.Drawing.Color.Red;
+                    item.Font = new System.Drawing.Font(item.Font.FontFamily, item.Font.Size, System.Drawing.FontStyle.Bold);
+                }
+                EntriesListView.Items.Add(item);
             }
             EntriesListView.EndUpdate();
+        }
+
+        private void EntriesListView_DrawItem(object sender, DrawListViewItemEventArgs e)
+        {
+            sender.GetType();
         }
     }
 }

@@ -38,14 +38,14 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.entriesList.Location = new System.Drawing.Point(-2, 2);
             this.entriesList.Name = "entriesList";
-            this.entriesList.Size = new System.Drawing.Size(310, 208);
+            this.entriesList.Size = new System.Drawing.Size(467, 208);
             this.entriesList.TabIndex = 0;
             // 
             // FindResults
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(307, 210);
+            this.ClientSize = new System.Drawing.Size(464, 210);
             this.Controls.Add(this.entriesList);
             this.MinimizeBox = false;
             this.Name = "FindResults";

@@ -33,6 +33,7 @@
             this.PaymentDateColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ValueColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ListLabel = new System.Windows.Forms.Label();
+            this.IsPaidColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // EntriesListView
@@ -43,7 +44,8 @@
             this.EntriesListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.LabelColumn,
             this.PaymentDateColumn,
-            this.ValueColumn});
+            this.ValueColumn,
+            this.IsPaidColumn});
             this.EntriesListView.HideSelection = false;
             this.EntriesListView.Location = new System.Drawing.Point(0, 20);
             this.EntriesListView.Name = "EntriesListView";
@@ -52,18 +54,22 @@
             this.EntriesListView.TabIndex = 0;
             this.EntriesListView.UseCompatibleStateImageBehavior = false;
             this.EntriesListView.View = System.Windows.Forms.View.Details;
+            this.EntriesListView.DrawItem += new System.Windows.Forms.DrawListViewItemEventHandler(this.EntriesListView_DrawItem);
             // 
             // LabelColumn
             // 
             this.LabelColumn.Text = "Etykieta";
+            this.LabelColumn.Width = 75;
             // 
             // PaymentDateColumn
             // 
             this.PaymentDateColumn.Text = "Data opłaty";
+            this.PaymentDateColumn.Width = 106;
             // 
             // ValueColumn
             // 
             this.ValueColumn.Text = "Kwota do zapłaty";
+            this.ValueColumn.Width = 123;
             // 
             // ListLabel
             // 
@@ -74,6 +80,11 @@
             this.ListLabel.Size = new System.Drawing.Size(46, 17);
             this.ListLabel.TabIndex = 1;
             this.ListLabel.Text = "label1";
+            // 
+            // IsPaidColumn
+            // 
+            this.IsPaidColumn.Text = "Zapłacone?";
+            this.IsPaidColumn.Width = 148;
             // 
             // EntriesList
             // 
@@ -95,5 +106,6 @@
         private System.Windows.Forms.ColumnHeader PaymentDateColumn;
         private System.Windows.Forms.ColumnHeader ValueColumn;
         private System.Windows.Forms.Label ListLabel;
+        private System.Windows.Forms.ColumnHeader IsPaidColumn;
     }
 }
