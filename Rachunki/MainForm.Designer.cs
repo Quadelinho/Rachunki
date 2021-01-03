@@ -100,6 +100,7 @@
             this.NextButton.TabIndex = 2;
             this.NextButton.Text = "Następny rachunek";
             this.NextButton.UseVisualStyleBackColor = true;
+            this.NextButton.Click += new System.EventHandler(this.NextButton_Click);
             // 
             // PreviousButton
             // 
@@ -111,6 +112,7 @@
             this.PreviousButton.TabIndex = 3;
             this.PreviousButton.Text = "Poprzedni rachunek";
             this.PreviousButton.UseVisualStyleBackColor = true;
+            this.PreviousButton.Click += new System.EventHandler(this.PreviousButton_Click);
             // 
             // DescriptionLabel
             // 

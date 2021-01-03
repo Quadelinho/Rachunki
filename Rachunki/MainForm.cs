@@ -12,7 +12,8 @@ namespace Rachunki
     public partial class MainForm : Form
     {
         private List<Bill> billsForLabel = new List<Bill>();
-        Bill currentlyShownBill = null;
+        private int currentlySelectedIndexWithinLabel = 0;
+        private Bill currentlyShownBill = null;
 
         public MainForm()
         {
@@ -81,21 +82,17 @@ namespace Rachunki
             billsForLabel = processor.GetBillsForLabel(SelectComboBox.Text);
 
             currentlyShownBill = billsForLabel[0];
-            DescriptionTextBox.Text = currentlyShownBill.Label;
-            PaymentDateTextBox.Text = currentlyShownBill.PaymentDate;
-            NextPaymentDateTextBox.Text = processor.GetNextPaymentDate(currentlyShownBill.PaymentDate, currentlyShownBill.Frequency);
-            ValueTextBox.Text = currentlyShownBill.Value.ToString();
-            FrequencyTextBox.Text = currentlyShownBill.Frequency.ToString();
+            currentlySelectedIndexWithinLabel = 0;
 
-            if (currentlyShownBill.IsPaid == 0) //false
-            {
-                PaidLabel.Text = "Nieopłacony";
-                PaidLabel.ForeColor = System.Drawing.Color.Red;
-            }
-            else
-            {
-                MakePaidLabelGreen();
-            }
+            PopulateControlsForBill(currentlyShownBill);
+
+            //DescriptionTextBox.Text = currentlyShownBill.Label;
+            //PaymentDateTextBox.Text = currentlyShownBill.PaymentDate;
+            //NextPaymentDateTextBox.Text = processor.GetNextPaymentDate(currentlyShownBill.PaymentDate, currentlyShownBill.Frequency);
+            //ValueTextBox.Text = currentlyShownBill.Value.ToString();
+            //FrequencyTextBox.Text = currentlyShownBill.Frequency.ToString();
+
+            //SetPaidLabel();
         }
 
         private void MainForm_Shown(object sender, EventArgs e)
@@ -178,6 +175,52 @@ namespace Rachunki
         {
             BillsProcessor processor = new BillsProcessor();
             processor.UpdateBill(currentlyShownBill);
+        }
+
+        private void PreviousButton_Click(object sender, EventArgs e)
+        {
+            if (currentlySelectedIndexWithinLabel + 1 < billsForLabel.Count)
+            {
+                ++currentlySelectedIndexWithinLabel;
+                currentlyShownBill = billsForLabel[currentlySelectedIndexWithinLabel];
+                PopulateControlsForBill(currentlyShownBill);
+            }
+        }
+
+        private void PopulateControlsForBill(Bill entry)
+        {
+            this.SuspendLayout();
+            DescriptionTextBox.Text = entry.Label;
+            PaymentDateTextBox.Text = entry.PaymentDate;
+            BillsProcessor processor = new BillsProcessor();
+            NextPaymentDateTextBox.Text = processor.GetNextPaymentDate(entry.PaymentDate, entry.Frequency);
+            ValueTextBox.Text = entry.Value.ToString();
+            FrequencyTextBox.Text = entry.Frequency.ToString();
+            SetPaidLabel();
+            this.ResumeLayout();
+        }
+
+        private void SetPaidLabel()
+        {
+            if (currentlyShownBill.IsPaid == 0) //false
+            {
+                PaidLabel.Text = "Nieopłacony";
+                PaidLabel.ForeColor = System.Drawing.Color.Red;
+            }
+            else
+            {
+                MakePaidLabelGreen();
+            }
+        }
+
+        private void NextButton_Click(object sender, EventArgs e)
+        {
+            if (currentlySelectedIndexWithinLabel - 1 >= 0)
+            {
+                --currentlySelectedIndexWithinLabel;
+                currentlyShownBill = billsForLabel[currentlySelectedIndexWithinLabel];
+                PopulateControlsForBill(currentlyShownBill);
+            }
         }
     }
 }
