@@ -25,3 +25,4 @@ C:\Git\Rach\Rachunki\Rachunki\obj\Release\Rachunki.csproj.CoreCompileInputs.cach
 C:\Git\Rach\Rachunki\Rachunki\obj\Release\Rachunki.csproj.CopyComplete
 C:\Git\Rach\Rachunki\Rachunki\obj\Release\Rachunki.exe
 C:\Git\Rach\Rachunki\Rachunki\obj\Release\Rachunki.pdb
+C:\Git\Rach\Rachunki\Rachunki\obj\Release\Rachunki.csprojAssemblyReference.cache

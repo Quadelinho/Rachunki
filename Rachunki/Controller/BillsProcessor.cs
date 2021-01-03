@@ -83,7 +83,7 @@ namespace Rachunki.Controller
         {
             using (var context = new DatabaseContext())
             {
-                return context.Bills.Where(b => b.Label == label).OrderByDescending(b => b.PaymentDate).FirstOrDefault();
+                return context.Bills.Where(b => b.Label == label).ToArray().OrderByDescending(b => DateTime.Parse(b.PaymentDate)).FirstOrDefault();
             }
         }
 
@@ -92,7 +92,7 @@ namespace Rachunki.Controller
             List<Bill> bills;
             using (var context = new DatabaseContext())
             {
-                bills = context.Bills.Where(b => b.Label == label).OrderByDescending(b => b.PaymentDate).ToList();
+                bills = context.Bills.Where(b => b.Label == label).ToArray().OrderByDescending(b => DateTime.Parse(b.PaymentDate)).ToList();
             }
             return bills != null ? bills : new List<Bill>();
         }
